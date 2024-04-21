@@ -72,8 +72,20 @@ int main(int argc, char* argv[])
 
     if (tipoMetodo == 1) {
         bubbleSort(filmes, totalDeFilmes);
+        cout << "\nFilmes após a ordenação:" << endl;
         displayFilmes(filmes, totalDeFilmes);
     }
+    if (tipoMetodo == 2) {
+        mergeSort(filmes, 0, totalDeFilmes - 1);
+        cout << "\nFilmes após a ordenação:" << endl;
+        displayFilmes(filmes, totalDeFilmes);
+    }
+    if (tipoMetodo == 3) {
+        mergeSort(filmes, 0, totalDeFilmes - 1);
+        cout << "\nFilmes após a ordenação:" << endl;
+        displayFilmes(filmes, totalDeFilmes);
+    }
+
     
     return 0;
 }
