@@ -24,6 +24,25 @@ int obter_lista_de_filmes(const std::string& nomeArquivoBinario, Filme filmes[])
     return count;
 }
 
+void displayFilmes(Filme filmes[], int tamanho) {
+    ofstream outFile("ordena.txt");
+
+    if (!outFile.is_open()) {
+        cout << "Erro ao abrir o arquivo de saída." << endl;
+        return;
+    }
+
+    outFile << setw(50) << left << "NOME" << setw(8) << "Year" << setw(10) << "Metascore" << endl;
+    outFile << setfill('-') << setw(68) << "" << setfill(' ') << endl; // Linha separadora
+
+    for (int i = 0; i < tamanho; i++) {
+        outFile << setw(50) << left << filmes[i].movieName
+                << setw(8) << filmes[i].yearOfRelease
+                << setw(10) << filmes[i].metascore << endl;
+    }
+
+    outFile.close();
+}
 
 int main(int argc, char* argv[])
 {
@@ -53,6 +72,7 @@ int main(int argc, char* argv[])
 
     if (tipoMetodo == 1) {
         bubbleSort(filmes, totalDeFilmes);
+        displayFilmes(filmes, totalDeFilmes);
     }
     
     return 0;
