@@ -75,3 +75,25 @@ void mergeSort(Filme filmes[], int left, int right) {
     }
 }
 
+
+int divisao(Filme filmes[], int left, int right) {
+    Filme pivot = filmes[right];
+    int i = left - 1;
+
+    for (int j = left; j <= right - 1; j++) {
+        if (strcmp(filmes[j].movieName, pivot.movieName) < 0) {
+            i++;
+            swap(filmes[i], filmes[j]);
+        }
+    }
+    swap(filmes[i + 1], filmes[right]);
+    return (i + 1);
+}
+
+void quickSort(Filme filmes[], int left, int right) {
+    if (left < right) {
+        int pi = divisao(filmes, left, right);
+        quickSort(filmes, left, pi - 1);
+        quickSort(filmes, pi + 1, right);
+    }
+}
