@@ -1,20 +1,33 @@
 #include <iostream> 
 #include <string>
 #include <fstream>
-
+#include "sort.h"
+#include "filme.h"
 
 using namespace std;
+
+int obter_lista_de_filmes(const std::string& nomeArquivoBinario, Filme filmes[])
+{
+    ifstream binFile(nomeArquivoBinario, ios::binary);
+
+    if (!binFile.is_open()) {
+        cout << "Erro ao abrir o arquivo de filmes." << endl;
+        return 0;
+    }
+
+    int count = 0;
+    while (binFile.read(reinterpret_cast<char*>(&filmes[count]), sizeof(Filme))) {
+        count++;
+    }
+
+    binFile.close();
+    return count;
+}
 
 
 int main(int argc, char* argv[])
 {
-    cout << "BORA "  << endl;
 
-    // o programa obrigatoriamente recebe dois argumentos por linha de comando
-    // argv[1] é o nome do arquivo binário e argv[2] é um inteiro que indica qual método de ordenação será utilizado:
-    // 1 - método simples 
-    // 2 - merge sort
-    // 3 - quick sort
     if (argc != 3)
     {
         std::cout << "Uso: " << argv[0] << " <arquivo_binário>.csv inteiro" << std::endl;
@@ -27,14 +40,20 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    
-    // Criar um vetor de n filmes.
+    Filme filme;
+    Filme filmes[500]; // supondo que tenham menos de 500 filmes
 
-    // Ler os filmes do arquivo binário e armazenar no vetor.
-    
-    // Ordenar o vetor de filmes de acordo com o método escolhido.
+    std::string nomeArquivoBinario = argv[1];
 
-    // Escrever o vetor de filmes ordenado em um arquivo texto chamado "filmes_ordenados.txt".'
+    int totalDeFilmes = obter_lista_de_filmes(nomeArquivoBinario, filmes);
+
+    int tipoMetodo = atoi(argv[2]);
+
+    cout << "\tipoMetodo:" << tipoMetodo << endl;
+
+    if (tipoMetodo == 1) {
+        bubbleSort(filmes, totalDeFilmes);
+    }
     
     return 0;
 }
