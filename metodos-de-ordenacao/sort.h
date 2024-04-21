@@ -3,4 +3,7 @@
 
 #include "filme.h"
 
+void bubbleSort(Filme filmes[], int tamanho);
+
+
 #endif /* SORT_H__ */
