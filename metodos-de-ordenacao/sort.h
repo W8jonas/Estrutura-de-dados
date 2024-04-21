@@ -4,6 +4,7 @@
 #include "filme.h"
 
 void bubbleSort(Filme filmes[], int tamanho);
+void mergeSort(Filme filmes[], int left, int right);
 
 
 #endif /* SORT_H__ */

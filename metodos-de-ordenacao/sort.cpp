@@ -4,6 +4,7 @@
 #include <cstring>
 
 
+// Implemente aqui as funções declaradas em sort.h
 
 void swap(Filme &a, Filme &b) {
     Filme temp = a;
@@ -23,4 +24,54 @@ void bubbleSort(Filme filmes[], int tamanho) {
     }
 }
 
+
+
+void merge(Filme filmes[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    Filme L[n1], R[n2];
+
+    for (int i = 0; i < n1; i++)
+        L[i] = filmes[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = filmes[mid + 1 + j];
+
+    int i = 0;
+    int j = 0;
+    int k = left;
+    while (i < n1 && j < n2) {
+        if (strcmp(L[i].movieName, R[j].movieName) <= 0) {
+            filmes[k] = L[i];
+            i++;
+        } else {
+            filmes[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        filmes[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        filmes[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(Filme filmes[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+
+        mergeSort(filmes, left, mid);
+        mergeSort(filmes, mid + 1, right);
+
+        merge(filmes, left, mid, right);
+    }
+}
 
